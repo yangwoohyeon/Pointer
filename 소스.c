@@ -1,94 +1,81 @@
-#include<stdio.h>
-#define SIZE 6
-int queue[SIZE];
-int front = -1, rear = -1;
+#include <stdio.h>
+#include <stdlib.h>
+void push(int);
+int pop();
+void print_s();
 
-int checkFull()
-{
-    if ((front == rear + 1) || (front == 0 && rear == SIZE - 1))
-    {
-        return 1;
-    }
-    return 0;
+typedef struct node {
+	int data;
+	struct node* next;
+}stack;
+
+stack* top = NULL;
+
+int main() {
+
+	push(1);
+
+	push(2);
+
+	push(3);
+
+	push(4);
+
+	push(5);
+
+	print_s();
+
+
+
+	pop();
+
+	pop();
+
+	print_s();
+
 }
 
+void push(int data) {
 
+	stack* new_node = (stack*)malloc(sizeof(stack));
 
-int checkEmpty()
-{
-
-    if (front == -1)
-
-    {
-
-        return 1;
-
-    }
-
-    return 0;
-
+	if (new_node == NULL) {
+		printf("stack is full\n");
+		exit(1);
+	}
+	new_node->data = data;
+	new_node->next = top; //±âÁ¸ÀÇ top
+	top = new_node;
 }
 
-void enqueue(int value)
-{
-    if (checkFull())
-        printf("Overflow condition\n");
-    else {
-        if (front == -1)
-            front = 0;
-        rear = (rear + 1) % SIZE;
-        queue[rear] = value;
-    }
-}
+                                                                                                                               
+int pop() {
+	stack* del;
+	int value;
 
-int dequeue()
-{
-    int variable;
-    if (checkEmpty()) {
-        printf("Underflow condition\n");
-        return -1;
-    }
-    else {
-        variable = queue[front];
-        if (front == rear) {
-            front = rear = -1;
-        }
-        else {
-            front = (front + 1) % SIZE;
-        }
-        return variable;
-    }
-}
-void display() {
-    int i;
-    if (checkEmpty())
-        printf("Nothing to dequeue\n");
-    else
-    {
-        for (i = front; i != rear; i = (i + 1) % SIZE)
-        {
-            printf("%d \n", queue[i]);
-        }
-        printf("%d \n", queue[i]);
-    }
-}
-int main()
-{
-    enqueue(15);
-    enqueue(20);
-    display();
-    dequeue();
-    display();
-    dequeue();
-    dequeue();
-    enqueue(1);
-    enqueue(2);
-    enqueue(3);
-    enqueue(4);
-    enqueue(5);
-    enqueue(6);
-    enqueue(7);   //Overflow condition
-    display();
+	if (top == NULL) {
+		printf("stack is empty\n");
+		exit(1);
+	}
 
-    return 0;
+	value = top->data;
+	del = top;
+	top = top->next;
+	free(del);
+
+	return value;
+}
+                                                                                                                                
+void print_s() {
+	stack* i;
+	stack* count = top;
+	i = count;
+
+	while (i != NULL) {
+		printf("%d\n",i->data);
+		i = count->next;
+		count = count->next;
+	}
+	printf("\n");
+
 }
