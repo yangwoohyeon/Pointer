@@ -1,81 +1,52 @@
-#include <stdio.h>
-#include <stdlib.h>
-void push(int);
-int pop();
-void print_s();
+#include<stdio.h>
+#define SIZE 100
+int stack[SIZE], choice, top;
 
-typedef struct node {
-	int data;
-	struct node* next;
-}stack;
-
-stack* top = NULL;
+void push(int x);
+int pop(void);
+void display(void);
 
 int main() {
-
+	top = -1;
 	push(1);
-
 	push(2);
-
 	push(3);
-
 	push(4);
-
 	push(5);
-
-	print_s();
-
-
-
+	display();
 	pop();
-
 	pop();
-
-	print_s();
-
+	display();
+	return 0;
 }
 
-void push(int data) {
-
-	stack* new_node = (stack*)malloc(sizeof(stack));
-
-	if (new_node == NULL) {
-		printf("stack is full\n");
-		exit(1);
+void push(int x) {
+	if (top == -1) {
+		top = 0;
 	}
-	new_node->data = data;
-	new_node->next = top; //기존의 top
-	top = new_node;
+	else if (top > SIZE - 1) {
+		printf("오버플로우\n");
+		return;
+	}
+	stack[top] = x;
+	top = top + 1;
 }
 
-                                                                                                                               
 int pop() {
-	stack* del;
-	int value;
-
-	if (top == NULL) {
-		printf("stack is empty\n");
-		exit(1);
+	if (top == -1) {
+		printf("언더플로우\n");
+		return -1;
 	}
-
-	value = top->data;
-	del = top;
-	top = top->next;
-	free(del);
-
-	return value;
+	else {
+		int value = stack[top];
+		top = top - 1;
+		return value;
+	}
 }
-                                                                                                                                
-void print_s() {
-	stack* i;
-	stack* count = top;
-	i = count;
 
-	while (i != NULL) {
-		printf("%d\n",i->data);
-		i = count->next;
-		count = count->next;
+void display() {
+	for (int i = top-1; i>=0; i--) {
+		printf("%d\n", stack[i]);
 	}
 	printf("\n");
-
 }
