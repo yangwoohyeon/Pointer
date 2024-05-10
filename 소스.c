@@ -1,52 +1,50 @@
-#include<stdio.h>
+#include <stdio.h>
 #define SIZE 100
-int stack[SIZE], choice, top;
-
-void push(int x);
-int pop(void);
-void display(void);
-
-int main() {
-	top = -1;
-	push(1);
-	push(2);
-	push(3);
-	push(4);
-	push(5);
-	display();
-	pop();
-	pop();
-	display();
-	return 0;
+void enqueue(int n);
+int dequeue();
+void show();
+int queue[SIZE];
+int Rear = -1;
+int Front = -1;
+int main()
+{
+	enqueue(1);
+	enqueue(2);
+	enqueue(3);
+	enqueue(4);
+	enqueue(5);
+	show();
+	dequeue();
+	dequeue();
+	show();
 }
 
-void push(int x) {
-	if (top == -1) {
-		top = 0;
-	}
-	else if (top > SIZE - 1) {
+void enqueue(int n) {
+	if (Rear >= SIZE) {
 		printf("오버플로우\n");
 		return;
 	}
-	stack[top] = x;
-	top = top + 1;
+	if (Front == -1) {
+		Front = 0;
+		Rear = Front;
+	}
+	Rear = Rear + 1;
+	queue[Rear] = n;
 }
 
-int pop() {
-	if (top == -1) {
-		printf("언더플로우\n");
-		return -1;
+int dequeue() {
+	if (Front > Rear) {
+		"언더플로우\n";
+		return;
 	}
-	else {
-		int value = stack[top];
-		top = top - 1;
-		return value;
-	}
+	int value = queue[Front];
+	Front = Front + 1;
+	return value;
 }
 
-void display() {
-	for (int i = top-1; i>=0; i--) {
-		printf("%d\n", stack[i]);
+void show() {
+	for (int i = Front+1; i <= Rear; i++) {
+		printf("%d\n", queue[i]);
 	}
 	printf("\n");
 }
