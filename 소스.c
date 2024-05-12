@@ -1,24 +1,52 @@
-#include <stdio.h> 
-#include <stdlib.h>
+#include<stdio.h>
+#define SIZE 100
+int stack[SIZE], choice, top;
+void push(int x);
+int pop(void);
+void display(void);
 
-struct Date {
-	int year;
-	int month;
-	int day;
-};
+int main()
+{
+	top = -1;
+	push(1);
+	push(2);
+	push(3);
+	push(4);
+	push(5);
+	display();
+	pop();
+	pop();
+	display();
 
-struct BirthDay {
-	char* name;
-	struct Date bday;
+	return 0;
+}
 
-};
-int main() {
-	struct BirthDay bd;
+void push(int x)
+{
+	if (top >= SIZE) {
+		printf("overflow\n");
+		exit(1);
+	}
+	top = top + 1;
+	stack[top] = x;
+}
 
-	bd.name = "Gildong";
-	bd.bday.year=2001;
-	bd.bday.month = 7;
-	bd.bday.day = 17;
-	printf("%s\n", bd.name);
-	printf("%d %d %d", bd.bday.year, bd.bday.month, bd.bday.day);
-} 
+int pop()
+{
+	if (top == -1) {
+		printf("underflow\n");
+		exit(1);
+	}
+	int value = stack[top];
+	top = top - 1;
+	return value;
+}
+
+void display()
+{
+	for (int i = top; i >= 0; i--) {
+		printf("%d\n", stack[i]);
+	}
+	printf("\n");
+
+}
