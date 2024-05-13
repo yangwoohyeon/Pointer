@@ -1,52 +1,21 @@
-#include<stdio.h>
-#define SIZE 100
-int stack[SIZE], choice, top;
-void push(int x);
-int pop(void);
-void display(void);
+#include < stdio.h > 
+#include < stdlib.h >
 
-int main()
-{
-	top = -1;
-	push(1);
-	push(2);
-	push(3);
-	push(4);
-	push(5);
-	display();
-	pop();
-	pop();
-	display();
-
-	return 0;
+int* find(int arr[]) {
+	int min = 0;
+	for (int i = 0; i < 5; i++) {
+		if (arr[min] > arr[i]) {
+			min = i;
+		}
+	}
+	return &arr[min];
 }
 
-void push(int x)
-{
-	if (top >= SIZE) {
-		printf("overflow\n");
-		exit(1);
-	}
-	top = top + 1;
-	stack[top] = x;
-}
+int main() {
+	int arr[5];
 
-int pop()
-{
-	if (top == -1) {
-		printf("underflow\n");
-		exit(1);
+	for (int i = 0; i < 5; i++) {
+		scanf_s("%d", &arr[i]);
 	}
-	int value = stack[top];
-	top = top - 1;
-	return value;
-}
-
-void display()
-{
-	for (int i = top; i >= 0; i--) {
-		printf("%d\n", stack[i]);
-	}
-	printf("\n");
-
+	printf("%d", *find(arr));
 }

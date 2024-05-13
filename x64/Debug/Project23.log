@@ -1,3 +1,2 @@
 ﻿  소스.c
-C:\Users\dngus\source\repos\Project23\Project23\소스.c(28,3): warning C4013: 'exit'이(가) 정의되지 않았습니다. extern은 int형을 반환하는 것으로 간주합니다.
   Project23.vcxproj -> C:\Users\dngus\source\repos\Project23\x64\Debug\Project23.exe
